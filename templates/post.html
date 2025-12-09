@@ -5,46 +5,53 @@
 {% block content %}
 <article class="post-detail">
     <header class="post-header">
-        <div class="post-meta">
-            <span>{{ post.created_at[:10] }}</span> • <span>{{ post.category }}</span>
-        </div>
-        <h1 class="post-title">{{ post.title }}</h1>
-    </header>
+        {% extends 'base.html' %}
 
-    <div class="post-content" id="viewer">
-        <!-- Content will be rendered here by Toast UI Viewer -->
-    </div>
+        {% block title %}{{ post.title }} - Jagrit Gumber{% endblock %}
 
-    {% if post.tags %}
-    <div class="tags">
-        {% for tag in post.tags %}
-        <span class="tag">#{{ tag }}</span>
-        {% endfor %}
-    </div>
-    {% endif %}
-</article>
+        {% block content %}
+        <article class="post-detail">
+            <header class="post-header">
+                <div class="post-meta">
+                    <span>{{ post.created_at[:10] }}</span> • <span>{{ post.category }}</span>
+                </div>
+                <h1 class="post-title">{{ post.title }}</h1>
+            </header>
 
-<!-- Toast UI Viewer CSS -->
-<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" />
-<link rel="stylesheet"
-    href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css" />
+            <div class="post-content" id="viewer"></div>
+            <textarea id="post-content-hidden" style="display:none;">{{ post.content | safe }}</textarea>
 
-<!-- Toast UI Viewer JS -->
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
-<script
-    src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
+            {% if post.tags %}
+            <div class="tags">
+                {% for tag in post.tags %}
+                <span class="tag">#{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </article>
 
-<script>
-    const Viewer = toastui.Editor;
-    const { codeSyntaxHighlight } = Viewer.plugin;
+        <!-- Toast UI Viewer CSS -->
+        <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" />
+        <link rel="stylesheet"
+            href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css" />
 
-    const viewer = new Viewer.factory({
-        el: document.querySelector('#viewer'),
-        viewer: true,
-        initialValue: `{{ post.content | safe }}`,
-        plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
-    });
-</script>
-{% endblock %}
+        <!-- Toast UI Viewer JS -->
+        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+        <script
+            src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
+
+        <script>
+            const Viewer = toastui.Editor;
+            const { codeSyntaxHighlight } = Viewer.plugin;
+            const content = document.getElementById('post-content-hidden').value;
+
+            const viewer = new Viewer.factory({
+                el: document.querySelector('#viewer'),
+                viewer: true,
+                initialValue: content,
+                plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
+            });
+        </script>
+        {% endblock %}
