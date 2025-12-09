@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Blog{% endblock %}</title>
+    <title>{% block title %}Verma Notes{% endblock %}</title>
+    <meta property="og:title" content="{% block og_title %}Verma Notes{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Personal blog of Abhishek Verma{% endblock %}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{{ request.url }}">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
@@ -15,7 +20,7 @@
     <div class="container">
         <header>
             <nav>
-                <a href="/" class="logo">Abhishek Verma</a>
+                <a href="/" class="logo">Verma Notes</a>
                 <div class="nav-links">
                     <button id="theme-toggle" aria-label="Toggle Dark Mode">
                         <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
