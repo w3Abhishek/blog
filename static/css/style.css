@@ -32,6 +32,7 @@ body {
     padding: 2rem;
 }
 
+/* Global Header (Navigation) */
 header {
     display: flex;
     justify-content: space-between;
@@ -159,7 +160,7 @@ body.dark-mode .status-badge {
     font-size: 1.1rem;
 }
 
-/* Blog Posts */
+/* Blog Posts List */
 .post-list {
     display: flex;
     flex-direction: column;
@@ -208,6 +209,45 @@ body.dark-mode .status-badge {
 /* Post Detail */
 .post-detail {
     background-color: var(--card-bg);
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Specific Post Header Styling - Overrides global header */
+.post-header {
+    display: block !important;
+    /* Critical: Override global header flex */
+    text-align: left;
+    margin-bottom: 3rem;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.post-header .post-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    letter-spacing: -0.02em;
+}
+
+.post-header .post-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Force Typography on Toast UI Viewer */
+#viewer,
+#viewer .toastui-editor-contents,
+#viewer .toastui-editor-contents * {
     font-family: 'Lora', serif !important;
 }
 
@@ -258,6 +298,31 @@ body.dark-mode .status-badge {
     border-radius: 4px;
     font-size: 0.8rem;
     color: var(--secondary-color);
+}
+
+/* Admin */
+.admin-login {
+    max-width: 400px;
+    margin: 4rem auto;
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     background-color: var(--bg-color);
