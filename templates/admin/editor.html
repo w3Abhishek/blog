@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ 'Edit' if post else 'New' }} Post{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ 'Edit' if post else 'New' }} Post</h1>
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="{{ post.title if post else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="slug">Slug</label>
+            <input type="text" id="slug" name="slug" value="{{ post.slug if post else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" id="category" name="category" value="{{ post.category if post else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="tags">Tags (comma separated)</label>
+            <input type="text" id="tags" name="tags" value="{{ post.tags | join(', ') if post and post.tags else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="content">Content</label>
+            <!-- Simple WYSIWYG using Quill -->
+            <div id="editor" style="height: 400px; background: white; color: black;">
+                {{ post.content | safe if post else '' }}
+            </div>
+            <input type="hidden" name="content" id="content">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="published" {{ 'checked' if post and post.published else '' }}> Publish
+                immediately
+            </label>
+        </div>
+
+        <button type="submit" class="btn">Save Post</button>
+        <a href="{{ url_for('dashboard') }}" class="btn"
+            style="background-color: var(--secondary-color); margin-left: 1rem;">Cancel</a>
+    </form>
+</div>
+
+<!-- Quill JS -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+    var quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+
+    document.querySelector('form').onsubmit = function () {
+        var content = document.querySelector('input[name=content]');
+        content.value = quill.root.innerHTML;
+    };
+</script>
+{% endblock %}
