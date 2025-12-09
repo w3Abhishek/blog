@@ -11,8 +11,8 @@
         <h1 class="post-title">{{ post.title }}</h1>
     </header>
 
-    <div class="post-content">
-        {{ post.content | safe }}
+    <div class="post-content" id="viewer">
+        <!-- Content will be rendered here by Toast UI Viewer -->
     </div>
 
     {% if post.tags %}
@@ -23,4 +23,28 @@
     </div>
     {% endif %}
 </article>
+
+<!-- Toast UI Viewer CSS -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" />
+<link rel="stylesheet"
+    href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css" />
+
+<!-- Toast UI Viewer JS -->
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+<script
+    src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
+
+<script>
+    const Viewer = toastui.Editor;
+    const { codeSyntaxHighlight } = Viewer.plugin;
+
+    const viewer = new Viewer.factory({
+        el: document.querySelector('#viewer'),
+        viewer: true,
+        initialValue: `{{ post.content | safe }}`,
+        plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
+    });
+</script>
 {% endblock %}

@@ -28,10 +28,8 @@
 
         <div class="form-group">
             <label for="content">Content</label>
-            <!-- Simple WYSIWYG using Quill -->
-            <div id="editor" style="height: 400px; background: white; color: black;">
-                {{ post.content | safe if post else '' }}
-            </div>
+            <!-- Toast UI Editor -->
+            <div id="editor"></div>
             <input type="hidden" name="content" id="content">
         </div>
 
@@ -48,17 +46,34 @@
     </form>
 </div>
 
-<!-- Quill JS -->
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<!-- Toast UI Editor CSS -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" />
+<link rel="stylesheet"
+    href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css" />
+
+<!-- Toast UI Editor JS -->
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+<script
+    src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
+
 <script>
-    var quill = new Quill('#editor', {
-        theme: 'snow'
+    const Editor = toastui.Editor;
+    const { codeSyntaxHighlight } = Editor.plugin;
+
+    const editor = new Editor({
+        el: document.querySelector('#editor'),
+        height: '500px',
+        initialEditType: 'markdown',
+        previewStyle: 'vertical',
+        initialValue: `{{ post.content | safe if post else '' }}`,
+        plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
     });
 
     document.querySelector('form').onsubmit = function () {
         var content = document.querySelector('input[name=content]');
-        content.value = quill.root.innerHTML;
+        content.value = editor.getMarkdown();
     };
 </script>
 {% endblock %}
