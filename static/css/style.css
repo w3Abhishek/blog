@@ -168,45 +168,6 @@ body.dark-mode .status-badge {
 
 .post-card {
     background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s;
-}
-
-.post-card:hover {
-    transform: translateY(-2px);
-}
-
-.post-meta {
-    font-size: 0.9rem;
-    color: var(--secondary-color);
-    margin-bottom: 0.5rem;
-}
-
-.post-title {
-    margin: 0 0 1rem;
-    font-size: 1.5rem;
-}
-
-.post-title a {
-    color: var(--text-color);
-    text-decoration: none;
-}
-
-.post-excerpt {
-    color: var(--text-color);
-    margin-bottom: 1rem;
-}
-
-.read-more {
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-/* Post Detail */
-.post-detail {
     background-color: var(--card-bg);
     padding: 3rem;
     border-radius: 8px;
