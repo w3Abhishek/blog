@@ -257,7 +257,8 @@ body.dark-mode .status-badge {
     margin-bottom: 0.5rem;
 }
 
-.form-group input, .form-group textarea {
+.form-group input,
+.form-group textarea {
     width: 100%;
     padding: 0.8rem;
     border: 1px solid var(--border-color);
@@ -286,4 +287,41 @@ footer {
     text-align: center;
     color: var(--secondary-color);
     font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+
+    header {
+        margin-bottom: 2rem;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .profile-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .status-badge {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .post-card {
+        padding: 1.5rem;
+    }
+
+    .post-detail {
+        padding: 1.5rem;
+    }
 }
