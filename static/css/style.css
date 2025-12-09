@@ -168,13 +168,104 @@ body.dark-mode .status-badge {
 
 .post-card {
     background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.post-card:hover {
+    transform: translateY(-2px);
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.post-title {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+}
+
+.post-title a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.post-excerpt {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.read-more {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Post Detail */
+.post-detail {
     background-color: var(--card-bg);
     padding: 3rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-.post-header {}
+.post-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2rem;
+}
+
+/* Force Typography on Toast UI Viewer */
+#viewer,
+#viewer .toastui-editor-contents,
+#viewer .toastui-editor-contents * {
+    font-family: 'Lora', serif !important;
+}
+
+#viewer .toastui-editor-contents {
+    font-size: 1.25rem !important;
+    line-height: 1.8 !important;
+    color: var(--text-color) !important;
+}
+
+#viewer .toastui-editor-contents p {
+    margin-bottom: 1.5rem !important;
+    font-size: 1.25rem !important;
+}
+
+#viewer .toastui-editor-contents h1,
+#viewer .toastui-editor-contents h2,
+#viewer .toastui-editor-contents h3,
+#viewer .toastui-editor-contents h4,
+#viewer .toastui-editor-contents h5,
+#viewer .toastui-editor-contents h6 {
+    margin-top: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    color: var(--text-color) !important;
+}
+
+#viewer .toastui-editor-contents code {
+    font-family: 'Consolas', 'Monaco', 'Andale Mono', monospace !important;
+    font-size: 0.9em !important;
+}
+
+#viewer .toastui-editor-contents pre {
+    background-color: var(--bg-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 4px !important;
+}
+
+.tags {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.5rem;
+}
 
 .tag {
     background-color: var(--bg-color);
