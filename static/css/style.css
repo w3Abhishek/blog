@@ -208,21 +208,6 @@ body.dark-mode .status-badge {
 /* Post Detail */
 .post-detail {
     background-color: var(--card-bg);
-    padding: 3rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.post-header {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 2rem;
-}
-
-/* Force Typography on Toast UI Viewer */
-#viewer,
-#viewer .toastui-editor-contents,
-#viewer .toastui-editor-contents * {
     font-family: 'Lora', serif !important;
 }
 
