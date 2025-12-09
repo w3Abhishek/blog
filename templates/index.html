@@ -29,49 +29,17 @@
 </section>
 
 <section class="post-list">
-    {% extends 'base.html' %}
-
-    {% block content %}
-    <section class="intro">
-        <div class="profile-header">
-            <img src="https://avatars.githubusercontent.com/u/40134208" alt="Jagrit Gumber" class="profile-pic">
-            <div class="profile-info">
-                <h1>Abhishek Verma</h1>
-                <p>25 - Backend Developer</p>
-            </div>
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                Open to Work
-            </div>
+    {% for post in posts %}
+    <article class="post-card">
+        <div class="post-meta">
+            <span>{{ post.created_at[:10] }}</span> • <span>{{ post.category }}</span>
         </div>
-
-        <div class="social-links">
-            <!-- Add social icons here if needed, keeping it minimal for now based on screenshot -->
-        </div>
-
-        <div class="intro-text">
-            <p>Hi, I'm Abhishek Verma,</p>
-            <p>I build anything and everything that seeks out my curiosity. Web apps, games, cross-platform
-                applications,
-                you name it, I make it.</p>
-            <p>I work throughout the application lifecycle from start to end, working at each abstract layer. UI/UX,
-                backend, and DevOps, ensuring what I build is optimized, performant, and scalable for people to use.</p>
-            <p>No person should suffer due to the developer's mistakes.</p>
-        </div>
-    </section>
-
-    <section class="post-list">
-        {% for post in posts %}
-        <article class="post-card">
-            <div class="post-meta">
-                <span>{{ post.created_at[:10] }}</span> • <span>{{ post.category }}</span>
-            </div>
-            <h2 class="post-title"><a href="{{ url_for('post_detail', slug=post.slug) }}">{{ post.title }}</a></h2>
-            <p class="post-excerpt">{{ post.content[:200] }}...</p>
-            <a href="{{ url_for('post_detail', slug=post.slug) }}" class="read-more">Read more →</a>
-        </article>
-        {% else %}
-        <p>No posts found.</p>
-        {% endfor %}
-    </section>
-    {% endblock %}
+        <h2 class="post-title"><a href="{{ url_for('post_detail', slug=post.slug) }}">{{ post.title }}</a></h2>
+        <p class="post-excerpt">{{ post.content[:200] }}...</p>
+        <a href="{{ url_for('post_detail', slug=post.slug) }}" class="read-more">Read more →</a>
+    </article>
+    {% else %}
+    <p>No posts found.</p>
+    {% endfor %}
+</section>
+{% endblock %}

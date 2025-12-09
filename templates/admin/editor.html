@@ -1,19 +1,49 @@
 {% extends 'base.html' %}
-<div id="editor"></div>
-<input type="hidden" name="content" id="content">
-</div>
 
-<div class="form-group">
-    <label>
-        <input type="checkbox" name="published" {{ 'checked' if post and post.published else '' }}> Publish
-        immediately
-    </label>
-</div>
+{% block title %}{{ 'Edit' if post else 'New' }} Post{% endblock %}
 
-<button type="submit" class="btn">Save Post</button>
-<a href="{{ url_for('dashboard') }}" class="btn"
-    style="background-color: var(--secondary-color); margin-left: 1rem;">Cancel</a>
-</form>
+{% block content %}
+<div class="container">
+    <h1>{{ 'Edit' if post else 'New' }} Post</h1>
+    <form method="POST" id="post-form">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="{{ post.title if post else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="slug">Slug</label>
+            <input type="text" id="slug" name="slug" value="{{ post.slug if post else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" id="category" name="category" value="{{ post.category if post else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="tags">Tags (comma separated)</label>
+            <input type="text" id="tags" name="tags" value="{{ post.tags | join(', ') if post and post.tags else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="content">Content</label>
+            <!-- Toast UI Editor -->
+            <div id="editor"></div>
+            <input type="hidden" name="content" id="content">
+        </div>
+
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="published" {{ 'checked' if post and post.published else '' }}> Publish
+                immediately
+            </label>
+        </div>
+
+        <button type="submit" class="btn">Save Post</button>
+        <a href="{{ url_for('dashboard') }}" class="btn"
+            style="background-color: var(--secondary-color); margin-left: 1rem;">Cancel</a>
+    </form>
 </div>
 
 <!-- Toast UI Editor CSS -->
@@ -34,43 +64,6 @@
 
     const editor = new Editor({
         el: document.querySelector('#editor'),
-        height: '500px',
-{% extends 'base.html' %}
-<div id="editor"></div>
-<input type="hidden" name="content" id="content">
-</div>
-
-<div class="form-group">
-    <label>
-        <input type="checkbox" name="published" {{ 'checked' if post and post.published else '' }}> Publish
-        immediately
-    </label>
-</div>
-
-<button type="submit" class="btn">Save Post</button>
-<a href="{{ url_for('dashboard') }}" class="btn"
-    style="background-color: var(--secondary-color); margin-left: 1rem;">Cancel</a>
-</form >
-</div >
-
-<!-- Toast UI Editor CSS -->
-<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" />
-<link rel="stylesheet"
-    href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css" />
-
-<!--Toast UI Editor JS-- >
-        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
-<script
-    src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
-
-<script>
-        const Editor = toastui.Editor;
-        const {codeSyntaxHighlight} = Editor.plugin;
-
-        const editor = new Editor({
-            el: document.querySelector('#editor'),
         height: '500px',
         initialEditType: 'markdown',
         previewStyle: 'vertical',
