@@ -786,3 +786,8 @@ footer {
         font-size: 2rem;
     }
 }
+/* Dark Mode Fix for Toast UI Viewer */
+body.dark-mode #viewer .toastui-editor-contents,
+body.dark-mode #viewer .toastui-editor-contents * {
+    color: var(--text-color) !important;
+}
