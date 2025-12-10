@@ -42,4 +42,22 @@
     <p>No posts found.</p>
     {% endfor %}
 </section>
+
+{% if total_pages > 1 %}
+<div class="pagination">
+    {% if has_prev %}
+    <a href="{{ url_for('index', page=page-1) }}" class="pagination-btn">&larr; Previous</a>
+    {% else %}
+    <span class="pagination-btn disabled">&larr; Previous</span>
+    {% endif %}
+
+    <span class="pagination-info">Page {{ page }} of {{ total_pages }}</span>
+
+    {% if has_next %}
+    <a href="{{ url_for('index', page=page+1) }}" class="pagination-btn">Next &rarr;</a>
+    {% else %}
+    <span class="pagination-btn disabled">Next &rarr;</span>
+    {% endif %}
+</div>
+{% endif %}
 {% endblock %}

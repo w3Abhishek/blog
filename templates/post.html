@@ -26,6 +26,26 @@
         {% endfor %}
     </div>
     {% endif %}
+
+    <div class="post-navigation">
+        {% if prev_post %}
+        <a href="{{ url_for('post_detail', slug=prev_post.slug) }}" class="nav-link prev-post">
+            <span class="nav-label">&larr; Previous Post</span>
+            <span class="nav-title">{{ prev_post.title }}</span>
+        </a>
+        {% else %}
+        <div class="nav-link disabled"></div>
+        {% endif %}
+
+        {% if next_post %}
+        <a href="{{ url_for('post_detail', slug=next_post.slug) }}" class="nav-link next-post">
+            <span class="nav-label">Next Post &rarr;</span>
+            <span class="nav-title">{{ next_post.title }}</span>
+        </a>
+        {% else %}
+        <div class="nav-link disabled"></div>
+        {% endif %}
+    </div>
 </article>
 
 <!-- Toast UI Viewer CSS -->
