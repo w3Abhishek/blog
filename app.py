@@ -20,25 +20,51 @@ def inject_now():
 
 @app.route('/')
 def index():
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    start = (page - 1) * per_page
+    end = start + per_page - 1
+
     try:
-        response = supabase.table('posts').select("*").eq('published', True).order('created_at', desc=True).execute()
+        # Fetch posts with pagination
+        response = supabase.table('posts').select("*", count='exact').eq('published', True).order('created_at', desc=True).range(start, end).execute()
         posts = response.data
+        total_count = response.count
+        
+        total_pages = (total_count + per_page - 1) // per_page
+        has_next = page < total_pages
+        has_prev = page > 1
+        
     except Exception as e:
         print(f"Error fetching posts: {e}")
         posts = []
-    return render_template('index.html', posts=posts)
+        total_pages = 0
+        has_next = False
+        has_prev = False
+
+    return render_template('index.html', posts=posts, page=page, total_pages=total_pages, has_next=has_next, has_prev=has_prev)
 
 @app.route('/post/<slug>')
 def post_detail(slug):
     try:
+        # Fetch current post
         response = supabase.table('posts').select("*").eq('slug', slug).eq('published', True).execute()
         if not response.data:
             abort(404)
         post = response.data[0]
+        
+        # Fetch previous post (older)
+        prev_response = supabase.table('posts').select("title, slug").eq('published', True).lt('created_at', post['created_at']).order('created_at', desc=True).limit(1).execute()
+        prev_post = prev_response.data[0] if prev_response.data else None
+        
+        # Fetch next post (newer)
+        next_response = supabase.table('posts').select("title, slug").eq('published', True).gt('created_at', post['created_at']).order('created_at', desc=False).limit(1).execute()
+        next_post = next_response.data[0] if next_response.data else None
+        
     except Exception as e:
         print(f"Error fetching post: {e}")
         abort(404)
-    return render_template('post.html', post=post)
+    return render_template('post.html', post=post, prev_post=prev_post, next_post=next_post)
 
 # Admin Routes
 def is_logged_in():
